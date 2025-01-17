@@ -1,4 +1,4 @@
-import type { FC, PropsWithChildren } from "react"
+import { useMemo, type FC, type PropsWithChildren } from "react"
 import { QRCodeSVG } from 'qrcode.react';
 import '@fontsource-variable/dancing-script';
 import "@chinese-fonts/lxgwwenkai/dist/LXGWWenKai-Bold/result.css";
@@ -9,10 +9,11 @@ interface RenderCertificateProps {
   name?: string;
 }
 
-export const RenderCertificate: FC<PropsWithChildren<RenderCertificateProps>> = ({ origin,isSpacingAndGlyphs = false, name= "My friend" }) => {
-  console.log("origin", origin)
+export const RenderCertificate: FC<PropsWithChildren<RenderCertificateProps>> = ({ origin, isSpacingAndGlyphs = false, name = "My friend" }) => {
+  const renderName = useMemo<string>(() => name || "My friend", [name])
+
   return <>
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 700 990">
+    <svg id="pet-tax-certificate-svg" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 700 990">
       {/* 背景 */}
       <rect width="100%" height="100%" fill="#ffffff" rx="20" />
 
@@ -37,10 +38,10 @@ export const RenderCertificate: FC<PropsWithChildren<RenderCertificateProps>> = 
         <tspan x="50%" y="455">This certifies that</tspan>
       </text>
 
-      <text id="nameText" x="50%" y="510" fontSize="40" fontFamily="'Dancing Script Variable', 'LXGW WenKai'" fontWeight="500" textAnchor="middle" fill="#000000" >
+      <text id="nameText" x="50%" y="510" fontSize="40" fontWeight="500" textAnchor="middle" fill="#000000" >
         {isSpacingAndGlyphs ? <tspan textLength="70%" lengthAdjust="spacingAndGlyphs">
-          {name}
-        </tspan>: name}
+          {renderName}
+        </tspan> : renderName}
       </text>
       <line x1="15%" y1="520" x2="85%" y2="520" stroke="black" />
 
@@ -61,7 +62,7 @@ export const RenderCertificate: FC<PropsWithChildren<RenderCertificateProps>> = 
       </text>
 
       {origin && <>
-        <QRCodeSVG x="80" y="870" width={50} height={50} value="https://reactjs.org/" />
+        <QRCodeSVG x="80" y="870" width={50} height={50} value={origin} />
         <text id="qrcode" fontSize="15" fontFamily="Arial" fontWeight="600" textAnchor="start" fill="#000000">
           <tspan x="140" y="885">
             扫描二维码制作你的证书
