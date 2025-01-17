@@ -10,6 +10,7 @@ interface RenderCertificateProps {
 }
 
 export const RenderCertificate: FC<PropsWithChildren<RenderCertificateProps>> = ({ origin, isSpacingAndGlyphs = false, name = "My friend" }) => {
+  console.log("origin:", origin)
   const renderName = useMemo<string>(() => name || "My friend", [name])
 
   return <>
