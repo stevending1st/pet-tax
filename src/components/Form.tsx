@@ -17,8 +17,8 @@ function downloadSVGAsPNG(svgId: string, filename: string) {
     const svgXML = new XMLSerializer().serializeToString(svgElement);
     // 创建一个Image对象以加载SVG数据
     const img = new Image();
-    img.height = 990;
-    img.width = 700;
+    img.height = 990 * 3;
+    img.width = 700 * 3;
     // 创建一个Blob和URL来处理图像数据
     const svgBlob = new Blob([svgXML], { type: 'image/svg+xml;charset=utf-8' });
     const url = URL.createObjectURL(svgBlob);
