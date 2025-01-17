@@ -1,15 +1,17 @@
-import { useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { Form } from "./Form";
 import { RenderCertificate } from "./RenderCertificate";
 
-interface CreateImageProps {
-  url: string
-}
 
-
-export const CreateImage: FC<CreateImageProps> = ({ url }) => {
+export const CreateImage: FC<{}> = () => {
   const [name, setName] = useState("My Friend");
   const [isSpacingAndGlyphs, setIsSpacingAndGlyphs] = useState(false);
+  const [url, setUrl] = useState<string>();
+
+  useEffect(() => {
+    // 获取当前页面URL
+    setUrl(window.location.origin + window.location.pathname);
+  }, []);
 
   return <div className="w-full p-10 flex flex-col md:flex-row md:items-start items-center">
     <div className="flex-none max-w-80">
